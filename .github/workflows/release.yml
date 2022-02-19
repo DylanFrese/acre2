@@ -66,6 +66,12 @@ jobs:
     steps:
     - name: Checkout the source code
       uses: actions/checkout@v2
+    - name: Setup Tools
+      run: |
+        C:\msys64\usr\bin\wget.exe ${{ secrets.TOOLS_URL }} -O acre2_tools.zip -q
+        Expand-Archive acre2_tools.zip -DestinationPath ci
+        echo "Check DirectX SDK: $(Test-Path .\\ci\\directx-sdk\\Include,.\\ci\\directx-sdk\\Lib\\${{ matrix.arch }})"
+        echo "DXSDK_DIR: ${{ env.DXSDK_DIR }}"
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
     - name: Build Extensions (x64)
