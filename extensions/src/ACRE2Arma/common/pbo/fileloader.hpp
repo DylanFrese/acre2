@@ -55,6 +55,7 @@ namespace acre {
                 if (find_ext == std::string::npos)
                     working_path = working_path + _extension;
 
+                LOG(TRACE) << "Searching for file in PBO " << working_path;
                 auto iter = _pbo_searcher->file_index().find(working_path);
                 if (iter != _pbo_searcher->file_index().end()) {
                     return _load_file(iter->first, iter->second, entry_);

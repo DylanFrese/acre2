@@ -178,6 +178,10 @@ namespace acre {
 
             LOG(INFO) << "PBO Index complete [" << _active_pbo_list.size() << " PBOs] [" << _file_pbo_index.size() << " files]";
 
+            for (auto const &pair: _file_pbo_index) {
+                LOG(TRACE) << "{" << pair.first << ": " << pair.second << "}\n";
+            }
+
             return true;
         }
 
