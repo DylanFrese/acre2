@@ -426,3 +426,13 @@ acre::Result CMumbleClient::updateShouldSwitchChannel(const bool state_) {
 bool CMumbleClient::shouldSwitchChannel() {
     return getShouldSwitchChannel();
 }
+
+acre::id_t CMumbleClient::getClientIDByName(const std::string &targetClientName_) {
+    mumble_userid_t userID;
+
+    if (mumAPI.findUserByName(pluginID, activeConnection, targetClientName_.c_str(), &userID) == MUMBLE_STATUS_OK) {
+      return userID;
+    };
+
+    return -1;
+}

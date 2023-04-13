@@ -62,6 +62,15 @@ public:
      */
     acre::Result localStopSpeaking(const acre::Speaking speakingType_) final;
 
+    /*!
+     * \brief Gets client id of a headless client
+     *
+     * \param[in]    targetClientName_ Target's DisplayName in TS
+     *
+     * \return       acre::id_t
+     */
+    acre::id_t getClientIDByName(const std::string &targetClientName_);
+
     std::string getTempFilePath(void) final;
     std::string getConfigFilePath(void) final;
 
