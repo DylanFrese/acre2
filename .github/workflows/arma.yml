@@ -4,6 +4,7 @@ on:
   push:
     branches:
     - master
+    - mumble-plugin-release
   pull_request:
 
 jobs:
