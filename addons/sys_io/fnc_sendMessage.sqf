@@ -15,9 +15,12 @@
  * Public: No
  */
 
+_startTime = diag_tickTime;
 if (GVAR(pipeCode) == "1") exitWith {
     private _ret = "ACRE2Arma" callExtension ("2" + _this);
     true
 };
+
+diag_log (format ["Sending message took %1", diag_tickTime - _startTime]);
 
 false

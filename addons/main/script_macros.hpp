@@ -1,4 +1,5 @@
 #define DEBUG_SYNCHRONOUS
+#define DISABLE_COMPILE_CACHE
 #include "\x\cba\addons\main\script_macros_common.hpp"
 
 #define RGB_GREEN 0, 0.5, 0, 1

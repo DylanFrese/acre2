@@ -5,6 +5,7 @@ option(USE_TRACY "USE_TRACY" OFF)
 set(ACRE_NAME "ACRE2Profiling")
 
 acre_set_linker_options()
+set(CMAKE_CXX_FLAGS "-std=c++17 -fPIC")
 
 file(GLOB SOURCES *.h *.hpp *.c *.cpp)
 

@@ -305,6 +305,7 @@ acre::Result CNamedPipeServer::sendLoop() {
 
         walltime_t lastTick = getMonotime();
         while (this->getConnectedWrite()) {
+            FrameMarkStart(sendFrameName);
             if (this->getShuttingDown()) {
                 break;
             }
@@ -346,6 +347,7 @@ acre::Result CNamedPipeServer::sendLoop() {
                     delete msg;
                 }
             }
+            FrameMarkEnd(sendFrameName);
             Sleep(1);
         }
         LOG("Write loop disconnected");
@@ -549,6 +551,7 @@ acre::Result CNamedPipeServer::readLoop() {
                 bufferHead += len;
             };
             uint32_t messageLength = (lengthBuffer[0] << 24) + (lengthBuffer[1] << 16) + (lengthBuffer[2] << 8) + lengthBuffer[3];
+            FrameMarkStart(receiveFrameName);
 
             if (messageLength > BUFSIZE - 1) {
                 LOG("Received too-large message with size %d", messageLength);
