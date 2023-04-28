@@ -79,12 +79,14 @@ jobs:
     - name: Build Extensions (x86)
       if: matrix.arch == 'x86'
       run: |
+        git submodule update --init
         cd extensions\\vcproj
         cmake .. -A Win32
         msbuild ACRE.sln /m '/t:ACRE2Arma\acre;ACRE2Arma\arma2ts;ACRE2\ACRE2Steam;ACRE2\ACRE2Mumble;ACRE2\ACRE2TS;Extras\Wav2B64' /p:Configuration=RelWithDebInfo
     - name: Build Extensions (x64)
       if: matrix.arch == 'x64'
       run: |
+        git submodule update --init
         cd extensions\\vcproj64
         cmake .. -A x64
         msbuild ACRE.sln /m '/t:ACRE2Arma\acre;ACRE2Arma\arma2ts;ACRE2\ACRE2Steam;ACRE2\ACRE2Mumble;ACRE2\ACRE2TS' /p:Configuration=RelWithDebInfo
@@ -111,6 +113,7 @@ jobs:
         sudo DEBIAN_FRONTEND=noninteractive apt install -y libfaudio-dev libtbb-dev
     - name: Build Extensions
       run: |
+        git submodule update --init
         mkdir -p extensions/build
         cd extensions/build
         cmake -DUSE_64BIT_BUILD=ON ..
