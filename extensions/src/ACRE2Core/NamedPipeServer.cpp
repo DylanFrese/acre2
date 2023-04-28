@@ -11,6 +11,7 @@
 #include <sys/socket.h>
 #include <netinet/ip.h>
 #endif
+#include <Tracy.hpp>
 
 #ifdef WIN32
 typedef clock_t walltime_t;
@@ -56,6 +57,7 @@ long diffMonotime(walltime_t current, walltime_t previous) {
 }
 
 acre::Result CNamedPipeServer::initialize() {
+    ZoneScoped;
 #ifdef WIN32
     HANDLE writeHandle, readHandle;
 
@@ -171,6 +173,8 @@ acre::Result CNamedPipeServer::initialize() {
 }
 
 acre::Result CNamedPipeServer::shutdown(void) {
+    ZoneScoped;
+
     this->setShuttingDown(true);
 
     this->setConnectedWrite(false);
@@ -213,7 +217,10 @@ acre::Result CNamedPipeServer::shutdown(void) {
     return acre::Result::ok;
 }
 
+const char *sendFrameName = "NamedPipeServer - sending";
+
 acre::Result CNamedPipeServer::sendLoop() {
+    tracy::SetThreadName("NamedPipeServer::sendLoop");
 #ifdef WIN32
     while (!this->getShuttingDown()) {
         do {
@@ -231,6 +238,8 @@ acre::Result CNamedPipeServer::sendLoop() {
 
         walltime_t lastTick = getMonotime();
         while (this->getConnectedWrite()) {
+            FrameMarkStart(sendFrameName);
+
             if (this->getShuttingDown())
                 break;
 
@@ -246,6 +255,8 @@ acre::Result CNamedPipeServer::sendLoop() {
                 if (msg != nullptr) {
                     lastTick = getMonotime();
                     const DWORD size = (uint32_t)strlen((char *)msg->getData()) + 1;
+                    ZoneScoped;
+
                     if (size > 3) {
                         DWORD cbWritten = 0;
                         // send it and free it
@@ -268,14 +279,19 @@ acre::Result CNamedPipeServer::sendLoop() {
                     }
                     delete msg;
                 }
+
+                FrameMarkEnd(sendFrameName);
             }
+
             Sleep(1);
         }
+
         LOG("Write loop disconnected");
         FlushFileBuffers(this->m_PipeHandleWrite);
         const bool ret = DisconnectNamedPipe(this->m_PipeHandleWrite);
         Sleep(1);
     }
+
     TRACE("Sending thread terminating");
 
     return acre::Result::ok;
@@ -301,6 +317,7 @@ acre::Result CNamedPipeServer::sendLoop() {
             }
 
             IMessage *msg = nullptr;
+            ZoneScoped;
             if (this->m_sendQueue.try_pop(msg)) {
                 if (msg != nullptr) {
                     lastTick = getMonotime();
@@ -340,7 +357,10 @@ acre::Result CNamedPipeServer::sendLoop() {
 #endif
 }
 
+const char *receiveFrameName = "NamedPipeServer - receiving";
+
 acre::Result CNamedPipeServer::readLoop() {
+    tracy::SetThreadName("NamedPipeServer::readLoop");
 #ifdef WIN32
     DWORD cbRead;
 
@@ -368,6 +388,8 @@ acre::Result CNamedPipeServer::readLoop() {
         }
         walltime_t lastTick = getMonotime();
         while (this->getConnectedRead()) {
+            FrameMarkStart(receiveFrameName);
+
             //this->checkServer();
             if (this->getShuttingDown()) {
                 break;
@@ -396,13 +418,15 @@ acre::Result CNamedPipeServer::readLoop() {
                     this->setConnectedRead(false);
                     break;
                 }
+
+                ZoneScoped;
+
                 // handle the packet and run it
                 mBuffer[cbRead] = 0x00;
-                //LOG("READ: %s", (char *)mBuffer);
-                IMessage *const msg = new CTextMessage((char *)mBuffer, cbRead);
-                //TRACE("got and parsed message [%s]", msg->getData());
+                // LOG("READ: %s", (char *)mBuffer);
+                IMessage *const msg = new CTextMessage((char *) mBuffer, cbRead);
+                // TRACE("got and parsed message [%s]", msg->getData());
                 if (msg != nullptr && msg->getProcedureName()) {
-
                     // Do not free msg, this is deleted inside runProcedure()
                     CEngine::getInstance()->getRpcEngine()->runProcedure(this, msg);
 
@@ -412,8 +436,12 @@ acre::Result CNamedPipeServer::readLoop() {
                 // wait 1ms for new msg so we dont hog cpu cycles
             } while (!ret);
             //ret = ConnectNamedPipe(this->getPipeHandle(), NULL);
+
+            FrameMarkEnd(receiveFrameName);
+
             Sleep(1);
         }
+
         // Kill the write pipe along with ourselves, because we master shutdown/startup
         this->setConnectedWrite(false);
         this->setConnectedRead(false);
@@ -559,6 +587,8 @@ acre::Result CNamedPipeServer::readLoop() {
                 //TRACE("tick [%d], [%s]",lastTick, msg->getData());
             }
             // wait 1ms for new msg so we dont hog cpu cycles
+            FrameMarkEnd(receiveFrameName);
+
             Sleep(1);
         }
 

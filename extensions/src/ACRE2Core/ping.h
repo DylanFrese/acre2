@@ -7,9 +7,12 @@
 #include "Engine.h"
 #include "TextMessage.h"
 
+#include <Tracy.hpp>
+
 volatile DWORD g_pingTime;
 
 RPC_FUNCTION(ping) {
+    ZoneScopedN("RPC - ping");
 #ifdef WIN32
     g_pingTime = clock() / CLOCKS_PER_SEC;
 #else

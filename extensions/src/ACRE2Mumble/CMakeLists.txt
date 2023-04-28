@@ -12,10 +12,10 @@ include_directories(mumble_includes)
 
 add_library( ${ACRE_NAME} MODULE ${SOURCES} ${GLOBAL_SOURCES})
 if(WIN32)
-    target_link_libraries(${ACRE_NAME} ACRE2Core ACRE2Shared x3daudio)
+    target_link_libraries(${ACRE_NAME} ACRE2Core ACRE2Shared ACRE2Profiling x3daudio)
     set_target_properties(${ACRE_NAME} PROPERTIES FOLDER ACRE2 LINK_FLAGS -SAFESEH:NO)
 else()
-    target_link_libraries(${ACRE_NAME} ACRE2Core ACRE2Shared FAudio)
+    target_link_libraries(${ACRE_NAME} ACRE2Core ACRE2Shared ACRE2Profiling FAudio)
 endif()
 target_compile_features(${ACRE_NAME} PRIVATE cxx_std_17)
 
