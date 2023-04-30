@@ -8,6 +8,7 @@
 
 #ifdef WIN32
 #include <concurrent_queue.h>
+#include <winsock2.h>
 #else
 #include <tbb/concurrent_queue.h>
 namespace concurrency = tbb;
@@ -41,13 +42,6 @@ public:
 
     char *currentServerId;
 
-#ifdef WIN32
-    DECLARE_MEMBER(HANDLE, PipeHandleRead);
-    DECLARE_MEMBER(HANDLE, PipeHandleWrite);
-    DECLARE_MEMBER(std::string, FromPipeName);
-    DECLARE_MEMBER(std::string, ToPipeName);
-#endif
-
     inline void setConnectedWrite(const bool value) { m_connectedWrite = value; }
     inline bool getConnectedWrite() const { return m_connectedWrite; }
 
@@ -75,14 +69,12 @@ private:
     std::thread m_sendThread;
     std::set<std::string> validTSServers;
 #ifdef WIN32
-    PSECURITY_ATTRIBUTES m_PipeSecurity;
+    SOCKET m_sockFD;
 #else
     int m_sockFD;
+#endif
     int m_clientFD;
-#endif
 
-#ifdef __linux
-    uint16_t acreListenPort = CAcreSettings::getInstance()->getWineSocketPort();
-#endif
+    uint16_t acreListenPort = CAcreSettings::getInstance()->getSocketPort();
 
 };

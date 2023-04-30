@@ -31,9 +31,7 @@ public:
     DECLARE_MEMBER(bool, DisableChannelSwitch);
     DECLARE_MEMBER(bool, EnableAudioTest);
 
-#ifdef __linux__
-    DECLARE_MEMBER(uint16_t, WineSocketPort);
-#endif
+    DECLARE_MEMBER(uint16_t, SocketPort);
 
     DECLARE_MEMBER(std::string, Path);
 };
