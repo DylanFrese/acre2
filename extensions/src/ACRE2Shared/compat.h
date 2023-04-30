@@ -29,12 +29,12 @@
     #include <crtdbg.h>
 #endif
 
+#pragma comment(lib, "ws2_32.lib")
+#pragma comment(lib, "advapi32.lib")
+
 /*
 // only pragma lib the non-lib builds
 #ifndef _LIB
-    #pragma comment(lib, "ws2_32.lib")
-    #pragma comment(lib, "advapi32.lib")
-
     #ifdef _WIN64
     #pragma comment(lib, "..\\..\\ACRE2Shared\\bin\\ACRE2Shared_x64.lib")
     #else
