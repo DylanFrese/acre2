@@ -51,13 +51,18 @@ public:
         tracy::SetThreadName("EntrantWorker");
         while (!getShuttingDown()) {
             LOCK(this);
-            if (!m_processQueue.empty()) {
+            auto queueSize = m_processQueue.size();
+            if (queueSize > 0) {
                 const T item = m_processQueue.front();
                 m_processQueue.pop();
+                UNLOCK(this);
                 exProcessItem(item);
+            } else {
+              UNLOCK(this);
             }
-            UNLOCK(this);
-            Sleep(1);
+            if (queueSize < 10) {
+              Sleep(1);
+            }
         }
         return acre::Result::ok;
     }
