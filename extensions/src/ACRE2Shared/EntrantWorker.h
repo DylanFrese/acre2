@@ -47,6 +47,8 @@ public:
     }
 
     acre::Result exWorkerThread() {
+        ZoneScoped;
+        tracy::SetThreadName("EntrantWorker");
         while (!getShuttingDown()) {
             LOCK(this);
             if (!m_processQueue.empty()) {

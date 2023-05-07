@@ -20,6 +20,7 @@ const char *frameName = "RPCEngine";
 //
 acre::Result CRpcEngine::exProcessItem(ACRE_RPCDATA *data) {
     tracy::SetThreadName("RPCEngine");
+    ZoneScoped;
     FrameMarkStart(frameName);
 
     if (data->function != nullptr) {
@@ -94,15 +95,19 @@ acre::Result CRpcEngine::runProcedure(IServer *const serverInstance, IMessage *m
         return acre::Result::error;
     }
 
+    ZoneText((char *) msg->getProcedureName(), strlen(msg->getProcedureName()));
+
     IRpcFunction *const ptr = this->findProcedure((char *) msg->getProcedureName());
     if (ptr != nullptr) {
         if (!entrant) {
             LOCK(this);
+            TracyMessageL("Entrant");
             ptr->call(serverInstance, msg);
             delete msg;
             UNLOCK(this);
         } else {
             if (!this->getRunning()) {
+                TracyMessageL("Starting worker");
                 this->startWorker();
             }
             ACRE_RPCDATA *const data = (ACRE_RPCDATA *)malloc(sizeof(ACRE_RPCDATA));
@@ -111,6 +116,7 @@ acre::Result CRpcEngine::runProcedure(IServer *const serverInstance, IMessage *m
             data->message = msg;
 
             LOCK(this);
+            TracyMessageL("Putting on queue");
             this->m_processQueue.push(data);
             UNLOCK(this);
         }
