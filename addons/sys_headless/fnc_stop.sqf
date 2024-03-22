@@ -17,7 +17,7 @@
 if (!hasInterface) exitWith {};
 
 params ["_unit"];
-TRACE_1("stop"_unit);
+TRACE_1("stop",_unit);
 
 if (isNil {_unit getVariable [QGVAR(keepRunning), nil]}) exitWith { ERROR_1("unit is not active",_this); };
 

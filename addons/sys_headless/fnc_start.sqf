@@ -24,7 +24,7 @@
 if (!hasInterface) exitWith {};
 
 params ["_unit", "_tsDisplayName", "_languageId", "_speakingType", "_radioId"];
-TRACE_4("start",_unit,_tsName,_languageId,_speakingType,_radioId);
+TRACE_5("start",_unit,_tsName,_languageId,_speakingType,_radioId);
 
 if (!alive _unit) exitWith { ERROR_1("bad unit",_this);  false };
 if (!isNil {_unit getVariable [QGVAR(keepRunning), nil]}) exitWith {  ERROR_1("unit is already active",_this); false };
