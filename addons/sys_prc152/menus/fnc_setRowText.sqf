@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 /*
  * Author: ACRE2Team
  * SHORT DESCRIPTION
@@ -20,7 +20,7 @@
     BEGIN_COUNTER(setRowText);
 #endif
 
-TRACE_1("setRowText", _this);
+TRACE_1("setRowText",_this);
 private _display = uiNamespace getVariable QGVAR(currentDisplay);
 
 params ["_row", "_string", ["_alignment", ALIGN_LEFT]];
@@ -55,7 +55,7 @@ switch _alignment do {
         _start = floor ( (_rowCount - _length) / 2);
     };
 };
-TRACE_3("setting text", _start, _rowCount, _length);
+TRACE_3("setting text",_start,_rowCount,_length);
 
 private _baseId = (_row * 1000) +1;
 

@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 /*
  * Author: ACRE2Team
  * SHORT DESCRIPTION
@@ -41,6 +41,6 @@
 
 params ["_radioId", "", ""];
 
-SCRATCH_SET(_radioId, "cachedTransmissions", false);
+SCRATCH_SET(_radioId,"cachedTransmissions",false);
 
 true;

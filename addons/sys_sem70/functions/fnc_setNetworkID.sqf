@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 /*
  * Author: ACRE2Team
  * SHORT DESCRIPTION
@@ -35,8 +35,8 @@ private "_newNetworkID";
 _newNetworkID = 100*_hecto + 10*_deca + _ones;
 
 private _currentChannel = ["getCurrentChannel"] call GUI_DATA_EVENT;
-private _channel = HASHLIST_SELECT(GET_STATE("channels"), _currentChannel);
-HASH_SET(_channel, "networkID", _newNetworkID);
+private _channel = HASHLIST_SELECT(GET_STATE("channels"),_currentChannel);
+HASH_SET(_channel,"networkID",_newNetworkID);
 
 ["setChannelData", [_currentChannel, _channel]] call GUI_DATA_EVENT;
 //["setState", ["networkID", _newNetworkID]] call GUI_DATA_EVENT;

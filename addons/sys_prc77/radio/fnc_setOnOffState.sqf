@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 /*
  * Author: ACRE2Team
  * Sets the radio on (1) or off (0).
@@ -21,4 +21,4 @@
 
 params ["", "", "_eventData", "_radioData", ""];
 
-HASH_SET(_radioData, "radioOn", _eventData);
+HASH_SET(_radioData,"radioOn",_eventData);

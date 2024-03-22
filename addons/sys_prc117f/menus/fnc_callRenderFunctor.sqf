@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 /*
  * Author: ACRE2Team
  * SHORT DESCRIPTION
@@ -17,7 +17,7 @@
  */
 
 params ["_menu"];
-TRACE_1("enter", _menu);
+TRACE_1("enter",_menu);
 
 private _ret =  false;
 if (!isNil "_menu" && {(count _menu) > 5}) then {

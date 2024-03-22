@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 /*
  * Author: ACRE2Team
  * Loads or saves a preset when pressing the Preset buttons on a PRC77.
@@ -51,7 +51,7 @@ if (_fnc == 0) then {
     private _newPresets = + _currentPresets;
     (_newPresets select _preset) set [0, _newPreset select 0];
     (_newPresets select _preset) set [1, _newPreset select 1];
-    SET_STATE("currentPreset", _newPresets);
+    SET_STATE("currentPreset",_newPresets);
 
     // Change the image and play click sound
     ["Acre_GenericClick", [0,0,0], [0,0,0], 1, false] call EFUNC(sys_sounds,playSound);

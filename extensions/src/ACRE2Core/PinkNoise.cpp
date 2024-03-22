@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <ctime>
+#include <cstdint>
 
 #include "AcreDsp.h"
 

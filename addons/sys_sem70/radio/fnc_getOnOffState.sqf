@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 /*
  * Author: ACRE2Team
  * SHORT DESCRIPTION
@@ -41,4 +41,4 @@
 
 params ["", "", "", "_radioData"];
 
-HASH_GET(_radioData, "radioOn");
+HASH_GET(_radioData,"radioOn");

@@ -21,11 +21,15 @@
 #endif
 
 private _data = _this;
-INFO_2("Data Sync Received: %1KB (%2s).",(count (toArray (str GVAR(radioData))))/1024,diag_tickTime-GVAR(dataSyncStart));
+if (ACRE_DEBUG_DATA_SYNC > 0) then {
+    INFO_2("Data Sync Received: %1KB (%2s).",(count (toArray (str GVAR(radioData))))/1024,diag_tickTime-GVAR(dataSyncStart));
+} else {
+    INFO_1("Data Sync Received (%1s).",diag_tickTime-GVAR(dataSyncStart));
+};
 GVAR(radioData) = (_data select 0) call FUNC(deserialize);
 EGVAR(sys_server,objectIdRelationTable) = (_data select 1) call FUNC(deserialize);
 ACRE_DATA_SYNCED = true;
-INFO_2("Data Processing. %1 pending events, %2 pending data updates.", count GVAR(pendingSyncEvents), count EGVAR(sys_server,pendingIdRelationUpdates));
+INFO_2("Data Processing. %1 pending events - %2 pending data updates.",count GVAR(pendingSyncEvents),count EGVAR(sys_server,pendingIdRelationUpdates));
 {
     _x call FUNC(onDataChangeEvent);
 } forEach GVAR(pendingSyncEvents);

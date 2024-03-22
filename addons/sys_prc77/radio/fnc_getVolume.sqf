@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 /*
  * Author: ACRE2Team
  * Returns the current radio volume.
@@ -18,7 +18,7 @@
  * Public: No
  */
 
-TRACE_1("", _this);
+TRACE_1("",_this);
 params ["", "", "", "_radioData", ""];
 
 private _volume = HASH_GET(_radioData,"volume");

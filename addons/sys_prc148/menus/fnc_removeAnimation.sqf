@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 /*
  * Author: ACRE2Team
  * SHORT DESCRIPTION
@@ -18,5 +18,5 @@
 
 params ["_id"];
 
-private _animations = SCRATCH_GET_DEF(GVAR(currentRadioId), "animations", []);
+private _animations = SCRATCH_GET_DEF(GVAR(currentRadioId),"animations",[]);
 _animations set [_id, []];

@@ -21,6 +21,7 @@
  */
 
 params ["_parentComponentId", "_parentConnector", "_childComponentId", "_childConnector", "_attributes", ["_force",false]];
+TRACE_6("attachComplexComponent",_parentComponentId,_parentConnector,_childComponentId,_childConnector,_attributes,_force);
 
 private _return = false;
 
@@ -41,13 +42,21 @@ if (_componentSimple == 1) exitWith {
 
 private _parentConnectorType = ((getArray(_parentComponentClass >> "connectors")) select _parentConnector) select 1;
 private _childConnectorType = ((getArray(_childComponentClass >> "connectors")) select _childConnector) select 1;
+if (isNil {_parentConnectorType}) exitWith {
+    WARNING_2("Parent %1 does not have connector index %2",configName _parentComponentClass,_parentConnector);
+    false
+};
+if (isNil {_childConnectorType}) exitWith {
+    WARNING_2("Child %1 does not have connector index %2",configName _childComponentClass,_childConnector);
+    false
+};
 
 if (_parentConnectorType == _childConnectorType) then {
     private _exit = false;
-    private _parentComponentData = HASH_GET(EGVAR(sys_data,radioData), _parentComponentId);
+    private _parentComponentData = HASH_GET(EGVAR(sys_data,radioData),_parentComponentId);
 
     if (!isNil "_parentComponentData") then {
-        private _parentConnectorData = HASH_GET(_parentComponentData, "acre_radioConnectionData");
+        private _parentConnectorData = HASH_GET(_parentComponentData,"acre_radioConnectionData");
         if (!isNil "_parentConnectorData") then {
             if (count _parentConnectorData > _parentConnector) then {
                 private _test = _parentConnectorData select _parentConnector;
@@ -63,7 +72,7 @@ if (_parentConnectorType == _childConnectorType) then {
 
         private _childComponentData = HASH_GET(EGVAR(sys_data,radioData),_childComponentId);
         if (!isNil "_childComponentData") then {
-            private _childConnectorData = HASH_GET(_childComponentData, "acre_radioConnectionData");
+            private _childConnectorData = HASH_GET(_childComponentData,"acre_radioConnectionData");
             if (!isNil "_childConnectorData") then {
                 if (count _childConnectorData > _childConnector) then {
                     private _test = _childConnectorData select _childConnector;

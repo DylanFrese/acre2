@@ -5,6 +5,7 @@
 #include <mutex>
 #include <condition_variable>
 #include <thread>
+#include <stdexcept>
 
 #include <Tracy.hpp>
 

@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 /*
  * Author: ACRE2Team
  * Opens the GUI of the radio. This is trigered by either double-click in the inventory,
@@ -21,7 +21,7 @@
  * Public: No
  */
 
-TRACE_1("OPENING GUI", _this);
+TRACE_1("OPENING GUI",_this);
 params ["_radioId", "", "", "", ""];
 
 // Prevent radio from being opened if it is externally used or it is not accessible

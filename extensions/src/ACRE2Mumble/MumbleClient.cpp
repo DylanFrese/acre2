@@ -250,7 +250,54 @@ acre::Result CMumbleClient::playSound(std::string path_, acre::vec3_fp32_t posit
 }
 
 std::string CMumbleClient::getUniqueId() {
-    return "not used";
+    const char *serverHash = nullptr;
+
+    if (mumAPI.getServerHash(pluginID, activeConnection, &serverHash) == MUMBLE_STATUS_OK) {
+        return serverHash;
+    }
+
+    return "";
+}
+
+mumble_channelid_t CMumbleClient::getCurrentChannelId() {
+    mumble_channelid_t currentChannelId = invalid_mumble_channel;
+    mumble_userid_t clientId;
+    if (mumAPI.getLocalUserID(pluginID, activeConnection, &clientId) == MUMBLE_STATUS_OK) {
+        mumAPI.getChannelOfUser(pluginID, activeConnection, clientId, &currentChannelId);
+    }
+
+    return currentChannelId;
+}
+
+std::string CMumbleClient::getServerName() {
+    return getChannelName(0);
+}
+
+std::string CMumbleClient::getChannelName() {
+    return getChannelName(getCurrentChannelId());
+}
+
+std::string CMumbleClient::getChannelName(mumble_channelid_t channel) {
+    const char *channelName = nullptr;
+    mumble_channelid_t currentChannelId = getCurrentChannelId();
+
+    if (currentChannelId != invalid_mumble_channel) {
+        if (mumAPI.getChannelName(pluginID, activeConnection, currentChannelId, &channelName) == MUMBLE_STATUS_OK) {
+            return channelName;
+        }
+    }
+
+    return "";
+}
+
+std::string CMumbleClient::getChannelUniqueID() {
+    mumble_channelid_t currentChannelId = getCurrentChannelId();
+
+    if (currentChannelId != invalid_mumble_channel) {
+        return std::to_string(currentChannelId);
+    }
+
+    return "";
 }
 
 std::string CMumbleClient::getConfigFilePath(void) {

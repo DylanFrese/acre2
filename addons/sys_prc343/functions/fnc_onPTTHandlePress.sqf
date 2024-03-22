@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 /*
  * Author: ACRE2Team
  * Handles the event of pressing the PTT handle. It triggers an animation and allows changing the actual block.
@@ -29,7 +29,7 @@ if (_key == 0) then {
         _newView = IN;
     };
     if (_newView != _currentView) then {
-        SET_STATE("currentView", _newView);
+        SET_STATE("currentView",_newView);
         [_newView] call CALLSTACK(FUNC(zoomChannelBlockSelector));
     };
 };

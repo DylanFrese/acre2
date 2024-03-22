@@ -59,6 +59,16 @@ long diffMonotime(walltime_t current, walltime_t previous) {
 acre::Result CNamedPipeServer::initialize() {
     ZoneScoped;
 
+#ifdef WIN32
+    HANDLE writeHandle, readHandle;
+
+    SECURITY_DESCRIPTOR sd;
+    if (!InitializeSecurityDescriptor(&sd, SECURITY_DESCRIPTOR_REVISION)) { LOG("InitializeSecurityDescriptor Error : %u", GetLastError()); }
+    if (!SetSecurityDescriptorDacl(&sd, TRUE, nullptr, FALSE)) { LOG("SetSecurityDescriptorDacl Error : %u", GetLastError()); }
+    if (!SetSecurityDescriptorControl(&sd, SE_DACL_PROTECTED, SE_DACL_PROTECTED)) { LOG("SetSecurityDescriptorControl Error : %u", GetLastError()); }
+    SECURITY_ATTRIBUTES sa = { sizeof(SECURITY_ATTRIBUTES), &sd, true };
+#endif
+
     // open our pipe handle, then kick up a thread to monitor it and add shit to our queue
     // this end LISTENS and CREATES the pipe
     LOG("Opening game pipe...");

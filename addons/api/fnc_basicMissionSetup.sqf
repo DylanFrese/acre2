@@ -26,7 +26,7 @@ params [
 // Run once
 if (!isNil QGVAR(basicMissionSetup) && {GVAR(basicMissionSetup)}) exitWith {};
 
-TRACE_1("enter", _this);
+TRACE_1("enter",_this);
 
 // Basic setup
 private _setupRadios = _logic getVariable ["RadioSetup", false];
@@ -82,14 +82,15 @@ private _addRadios = {
     _player setVariable [QGVAR(basicMissionSetup), true, true];
 
     private _cleanRadioList = [];
-    if !("ACRE_PRC343" in _defaultRadios) then {
+    private _defaultRadio = EGVAR(sys_radio,defaultRadio);
+    if !(_defaultRadio in _defaultRadios) then {
         [_player, "ItemRadio"] call EFUNC(sys_core,removeGear);
-        [_player, "ACRE_PRC343"] call EFUNC(sys_core,removeGear);
+        [_player, _defaultRadio] call EFUNC(sys_core,removeGear);
         _cleanRadioList = _defaultRadios;
     } else {
         private _countDefaultRadios = 0;
         {
-            if (_x == "ACRE_PRC343") then {
+            if (_x == _defaultRadio) then {
                 _countDefaultRadios = _countDefaultRadios + 1;
                 if (_countDefaultRadios > 1) then {
                     _cleanRadioList pushBack _x;
@@ -101,7 +102,7 @@ private _addRadios = {
 
     };
 
-    TRACE_1("Adding Radios", _cleanRadioList);
+    TRACE_1("Adding Radios",_cleanRadioList);
 
     if ((backpack _player == "") && {(["ACRE_PRC77", "ACRE_PRC117F"] arrayIntersect _cleanRadioList) isNotEqualTo []}) then {
         _player addBackpack "B_AssaultPack_khk";

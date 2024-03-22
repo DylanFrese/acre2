@@ -43,9 +43,9 @@ if (GVAR(keyedMicRadios) isNotEqualTo []) then {
         _playerRadios = [] call EFUNC(sys_data,getPlayerRadioList);
         _playerRadios = _playerRadios - GVAR(nearRadios);
         _playerRadios append GVAR(nearRadios);
-        HASH_SET(GVAR(coreCache), "playerRadios", _playerRadios);
+        HASH_SET(GVAR(coreCache),"playerRadios",_playerRadios);
     } else {
-        _playerRadios = HASH_GET(GVAR(coreCache), "playerRadios");
+        _playerRadios = HASH_GET(GVAR(coreCache),"playerRadios");
     };
     // GVAR(lastRadioTime) = time + ((0.25*(count _playerRadios)) min 1);
     private _signalHint = "";
@@ -53,7 +53,7 @@ if (GVAR(keyedMicRadios) isNotEqualTo []) then {
     {
         private _unit = _x;
         if (!IS_MUTED(_unit)) then {
-            TRACE_1("Calling processRadioSpeaker", _unit);
+            TRACE_1("Calling processRadioSpeaker",_unit);
             private _returnedRadios = [_unit, _playerRadios] call FUNC(processRadioSpeaker);
 
             {
@@ -90,6 +90,7 @@ if (GVAR(keyedMicRadios) isNotEqualTo []) then {
     #endif
 
     _radioParamsSorted params ["_radios","_sources"];
+    GVAR(previousSortedParams) = _radioParamsSorted;
 
     #ifdef ENABLE_PERFORMANCE_COUNTERS
         if (_radios isNotEqualTo []) then {
@@ -113,13 +114,13 @@ if (GVAR(keyedMicRadios) isNotEqualTo []) then {
                 if (_on == 0) then {
                     _volumeModifier = 0;
                 };
-                HASH_SET(GVAR(coreCache), "volume" + _recRadio, _radioVolume);
-                HASH_SET(GVAR(coreCache), "volumeModifier" + _recRadio, _volumeModifier);
-                HASH_SET(GVAR(coreCache), "on" + _recRadio, _on);
+                HASH_SET(GVAR(coreCache),"volume" + _recRadio,_radioVolume);
+                HASH_SET(GVAR(coreCache),"volumeModifier" + _recRadio,_volumeModifier);
+                HASH_SET(GVAR(coreCache),"on" + _recRadio,_on);
             } else {
-                _radioVolume = HASH_GET(GVAR(coreCache), "volume" + _recRadio);
-                _volumeModifier = HASH_GET(GVAR(coreCache), "volumeModifier" + _recRadio);
-                _on = HASH_GET(GVAR(coreCache), "on" + _recRadio);
+                _radioVolume = HASH_GET(GVAR(coreCache),"volume" + _recRadio);
+                _volumeModifier = HASH_GET(GVAR(coreCache),"volumeModifier" + _recRadio);
+                _on = HASH_GET(GVAR(coreCache),"on" + _recRadio);
             };
             if (_on == 1) then {
                 #ifdef ENABLE_PERFORMANCE_COUNTERS
@@ -131,9 +132,9 @@ if (GVAR(keyedMicRadios) isNotEqualTo []) then {
                 if (GVAR(fullDuplex) || {(toLower _recRadio) in ACRE_SPECTATOR_RADIOS}) then {
                     _hearableRadios = _sourceRadios;
                 };
-                // HASH_SET(GVAR(coreCache), _recRadio + "hmt_cache", _hearableRadios);
+                // HASH_SET(GVAR(coreCache),_recRadio + "hmt_cache",_hearableRadios);
                 // } else {
-                    // _hearableRadios = HASH_GET(GVAR(coreCache), _recRadio + "hmt_cache");
+                    // _hearableRadios = HASH_GET(GVAR(coreCache),_recRadio + "hmt_cache");
                 // };
                 #ifdef ENABLE_PERFORMANCE_COUNTERS
                     END_COUNTER(handleMultipleTransmissions);
@@ -162,17 +163,17 @@ if (GVAR(keyedMicRadios) isNotEqualTo []) then {
                     _on = [_x select 1, "getOnOffState"] call EFUNC(sys_data,dataEvent);
                     if (_on == 1) then {
                         _x params ["_unit", "", "_signalData", "_params"];
-                        if (!HASH_HASKEY(_compiledParams, netId _unit)) then {
-                            HASH_SET(_compiledParams, netId _unit, []);
+                        if (!HASH_HASKEY(_compiledParams,netId _unit)) then {
+                            HASH_SET(_compiledParams,netId _unit,[]);
                         };
-                        private _speakingRadios = HASH_GET(_compiledParams, netId _unit);
+                        private _speakingRadios = HASH_GET(_compiledParams,netId _unit);
                         if (_params select 3) then { // speaker / loudspeaker
                             // Possible sound fix: Always double the distance of the radio for hearing purposes
                             // on external speaker to make it 'distant' like a speaker.
                             // This should be moved to plugin probably.
                             _params set [4, _radioPos];
                             _params set [0, _radioVolume * _volumeModifier * _attenuate * _occlusion];
-                            TRACE_4("volume (loudspeaker)",_params select 0,_radioVolume,_volumeModifier,_attenuate,_occlusion);
+                            TRACE_5("volume (loudspeaker)",_params select 0,_radioVolume,_volumeModifier,_attenuate,_occlusion);
                         } else {
                             private _ear = [_recRadio, "getState", "ACRE_INTERNAL_RADIOSPATIALIZATION"] call EFUNC(sys_data,dataEvent);
                             if (isNil "_ear") then {
@@ -216,7 +217,7 @@ if (GVAR(keyedMicRadios) isNotEqualTo []) then {
         private _unit = objectFromNetId _x;
         if (!isNull _unit) then {
             _sentMicRadios pushBack _unit;
-            private _params = HASH_GET(_compiledParams, _x);
+            private _params = HASH_GET(_compiledParams,_x);
             private _canUnderstand = [_unit] call FUNC(canUnderstand);
             private _paramArray = ["r", GET_VOIPID(_unit), !_canUnderstand, count _params];
             _paramArray append (flatten _params);
@@ -240,7 +241,7 @@ if (GVAR(keyedMicRadios) isNotEqualTo []) then {
     if (!isNull _unit) then {
         if (!IS_MUTED(_unit) && {_unit != acre_player}) then {
             if (_unit call FUNC(inRange)) then {
-                TRACE_1("Calling processDirectSpeaker", _unit);
+                TRACE_1("Calling processDirectSpeaker",_unit);
                 private _params = [_unit] call FUNC(processDirectSpeaker);
                 ["updateSpeakingData", _params] call EFUNC(sys_rpc,callRemoteProcedure);
             } else {

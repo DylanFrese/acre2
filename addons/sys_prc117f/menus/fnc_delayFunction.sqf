@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 /*
  * Author: ACRE2Team
  * SHORT DESCRIPTION
@@ -18,7 +18,7 @@
 
 params ["_radioId", "_endFunction", "_time"];
 
-TRACE_1("Registering a delayed function!", _this);
+TRACE_1("Registering a delayed function!",_this);
 
 [{
     params ["_args"];

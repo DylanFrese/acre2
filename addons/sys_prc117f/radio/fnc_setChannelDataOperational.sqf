@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 /*
  * Author: ACRE2Team
  * SHORT DESCRIPTION
@@ -27,7 +27,7 @@ if (_optChannelId != _channelId) then {
     false
 };
 
-HASH_SET(_opt, _key, _value);
+HASH_SET(_opt,_key,_value);
 
 [GVAR(currentRadioId), "setState", "optChannelData", _opt] call EFUNC(sys_data,dataEvent);
 

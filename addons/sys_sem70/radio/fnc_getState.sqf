@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 /*
  * Author: ACRE2Team
  * SHORT DESCRIPTION
@@ -42,4 +42,4 @@ params ["", "", "_eventData", "_radioData"];
 
 //TRACE_4("getState",_radioData,_event,_eventData,_radioData);
 
-HASH_GET(_radioData, _eventData);
+HASH_GET(_radioData,_eventData);

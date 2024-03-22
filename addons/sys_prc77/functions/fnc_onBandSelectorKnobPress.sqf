@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 /*
  * Author: ACRE2Team
  * Handles the event of turning the band selector radio knob: 32 to 50 MHz or 53-75 MHz.
@@ -30,7 +30,7 @@ private _currentTuneKnobsPosition = GET_STATE("currentChannel");
 
 //Define and set new knob position
 private _newBand = ((_currentBand + _dir) max 0) min 1;
-SET_STATE_CRIT("band", _newBand);
+SET_STATE_CRIT("band",_newBand);
 
 //The setCurrentChannel Event shall be triggered as well!
 ["setCurrentChannel", _currentTuneKnobsPosition] call CALLSTACK(GUI_DATA_EVENT);

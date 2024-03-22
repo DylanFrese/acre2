@@ -21,6 +21,7 @@ GVAR(sysEventCache) = HASH_CREATE;
 GVAR(radioEventCache) = HASH_CREATE;
 
 DVAR(ACRE_DATA_SYNCED) = false;
+DVAR(ACRE_DEBUG_DATA_SYNC) = 0;
 
 DVAR(ACRE_DEBUG_LASTFRAME) = 0;
 DVAR(ACRE_DEBUG_ECOUNT) = 0;
@@ -40,7 +41,7 @@ DFUNC(_hashSerialize) = {
     private _hash = _this;
     private _vals = [];
     private _keys = (allVariables _hash) select {
-        private _val = HASH_GET(_hash, _x);
+        private _val = HASH_GET(_hash,_x);
         if (!isNil "_val") then {
             if (IS_ARRAY(_val)) then {
                 _val = _val call FUNC(_arraySerialize);

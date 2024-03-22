@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 /*
  * Author: ACRE2Team
  * SHORT DESCRIPTION
@@ -42,4 +42,4 @@
 
 params ["", "", "", "_radioData"];
 
-(HASH_GET(_radioData, "audioPath") == "INTSPEAKER")
+(HASH_GET(_radioData,"audioPath") == "INTSPEAKER")

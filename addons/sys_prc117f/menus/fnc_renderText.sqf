@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 /*
  * Author: ACRE2Team
  * SHORT DESCRIPTION
@@ -16,7 +16,7 @@
  * Public: No
  */
 
-TRACE_1("renderText", _this);
+TRACE_1("renderText",_this);
 
 params ["_row", "_text", ["_alignment", ALIGN_LEFT]];
 

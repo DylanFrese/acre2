@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 /*
  * Author: ACRE2Team
  * SHORT DESCRIPTION
@@ -55,5 +55,5 @@ if (_vol%0.20 != 0) then {
     _vol = _vol-(_vol%0.20);
 };
 
-HASH_SET(_radioData, "volume", _eventData);
-TRACE_3("VOLUME SET",_radioId, _vol, _radioData);
+HASH_SET(_radioData,"volume",_eventData);
+TRACE_3("VOLUME SET",_radioId,_vol,_radioData);

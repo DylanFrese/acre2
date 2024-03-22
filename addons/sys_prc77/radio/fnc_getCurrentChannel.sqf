@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 /*
  * Author: ACRE2Team
  * Returns the current channel of the active radio.
@@ -19,7 +19,7 @@
  * Public: No
  */
 
-TRACE_1("GET CURRENT CHANNEL", _this);
+TRACE_1("GET CURRENT CHANNEL",_this);
 
 params ["", "", "", "_radioData", ""];
 

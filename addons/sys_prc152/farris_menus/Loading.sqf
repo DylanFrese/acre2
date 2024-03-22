@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 //#define DEBUG_MODE_FULL
 
 DFUNC(Loading_End) = {
@@ -28,7 +28,7 @@ DFUNC(Loading_BarFill_end) = {
     // Turn the radio on
     [_radioId, "setOnOffState", 1] call EFUNC(sys_data,dataEvent);
     if (_radioId isEqualTo GVAR(currentRadioId)) then {
-        private _currentMenu = GET_STATE_DEF("currentHome", GVAR(VULOSHOME));
+        private _currentMenu = GET_STATE_DEF("currentHome",GVAR(VULOSHOME));
         [_currentMenu] call FUNC(changeMenu);
     };
 };
