@@ -21,7 +21,7 @@ params ["_newVoipId", "_netId"];
 _newVoipId = parseNumber _newVoipId;
 
 private _playerObject = objectFromNetId _netId;
-TRACE_1("got client ID", _this);
+TRACE_1("got client ID",_this);
 if (_playerObject == acre_player) then {
     private _resendSpectator = false;
     if (_newVoipId != GVAR(voipId)) then {

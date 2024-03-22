@@ -16,7 +16,7 @@ jobs:
       SHA_SHORT: ${{ env.SHA_SHORT }}
     steps:
     - name: Checkout the source code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Setup HEMTT
       uses: arma-actions/hemtt@v1
     - name: Setup Binarize
@@ -46,7 +46,7 @@ jobs:
     - name: Rename build folder
       run: mv .hemttout/release .hemttout/@acre2
     - name: Upload Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: acre2
         path: .hemttout/@*
@@ -62,7 +62,7 @@ jobs:
       DXSDK_DIR: "${{ github.workspace }}\\ci\\directx-sdk"  # CMake FindDirectX
     steps:
     - name: Checkout the source code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Setup BattlEye and DirectX SDK
       run: |
         C:\msys64\usr\bin\wget.exe ${{ secrets.TOOLS_URL }} -O acre2_tools.zip -q
@@ -70,7 +70,7 @@ jobs:
         echo "Check DirectX SDK: $(Test-Path .\\ci\\directx-sdk\\Include,.\\ci\\directx-sdk\\Lib\\${{ matrix.arch }})"
         echo "DXSDK_DIR: ${{ env.DXSDK_DIR }}"
     - name: Add MSBuild to PATH
-      uses: microsoft/setup-msbuild@v1.3
+      uses: microsoft/setup-msbuild@v2
     - name: Build Extensions (x86)
       if: matrix.arch == 'x86'
       run: |
@@ -84,7 +84,7 @@ jobs:
         cmake .. -A x64
         msbuild ACRE.sln /m '/t:ACRE2Arma\acre;ACRE2Arma\arma2ts;ACRE2\ACRE2Steam;ACRE2\ACRE2Mumble;ACRE2\ACRE2TS' /p:Configuration=RelWithDebInfo
     - name: Upload Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: acre2-extensions-${{ matrix.arch }}
         path: |
