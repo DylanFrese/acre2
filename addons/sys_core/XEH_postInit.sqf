@@ -3,14 +3,25 @@
 
 [QGVAR(onRevealUnit), { _this call FUNC(onRevealUnit) }] call CALLSTACK(CBA_fnc_addEventHandler);
 
+["CBA_loadoutGet", {
+    params ["", "_loadout", ""];
+    [_loadout] call EFUNC(api,filterUnitLoadout);
+}] call CBA_fnc_addEventHandler;
+
 if (!hasInterface) exitWith {};
 
 // Ensure the VOIP plugin handler code is initialized first
 [] call EFUNC(sys_io,startServer);
 
+if (("acre" callExtension "version") == "") then { ERROR_WITH_TITLE("ACRE","Plugin not found"); };
+
 ["handleGetClientID", FUNC(handleGetClientID)] call EFUNC(sys_rpc,addProcedure);
 ["handleGetPluginVersion", FUNC(handleGetPluginVersion)] call EFUNC(sys_rpc,addProcedure);
 ["handleGetHeadVector", FUNC(handleGetHeadVector)] call EFUNC(sys_rpc,addProcedure);
+["handleGetVOIPChannelName", FUNC(handleGetVOIPChannelName)] call EFUNC(sys_rpc,addProcedure);
+["handleGetVOIPChannelUID", FUNC(handleGetVOIPChannelUID)] call EFUNC(sys_rpc,addProcedure);
+["handleGetVOIPServerName", FUNC(handleGetVOIPServerName)] call EFUNC(sys_rpc,addProcedure);
+["handleGetVOIPServerUID", FUNC(handleGetVOIPServerUID)] call EFUNC(sys_rpc,addProcedure);
 ["remoteStartSpeaking", FUNC(remoteStartSpeaking)] call EFUNC(sys_rpc,addProcedure);
 ["remoteStopSpeaking", FUNC(remoteStopSpeaking)] call EFUNC(sys_rpc,addProcedure);
 ["localStartSpeaking", FUNC(localStartSpeaking)] call EFUNC(sys_rpc,addProcedure);

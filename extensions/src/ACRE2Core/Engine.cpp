@@ -30,6 +30,10 @@
 #include "setSetting.h"
 #include "setChannelDetails.h"
 
+#include "getVOIPServerName.h"
+#include "getVOIPChannelName.h"
+#include "getVOIPChannelUID.h"
+#include "getVOIPServerUID.h"
 #ifdef WIN32
 #include <shlobj.h>
 #else
@@ -97,6 +101,10 @@ acre::Result CEngine::initialize(IClient *client, IServer *externalServer, std::
     this->getRpcEngine()->addProcedure(new setSelectableVoiceCurve());
     this->getRpcEngine()->addProcedure(new setSetting());
     this->getRpcEngine()->addProcedure(new setChannelDetails());
+    this->getRpcEngine()->addProcedure(new getVOIPServerName());
+    this->getRpcEngine()->addProcedure(new getVOIPChannelName());
+    this->getRpcEngine()->addProcedure(new getVOIPChannelUID());
+    this->getRpcEngine()->addProcedure(new getVOIPServerUID());
 
     // Initialize the client, because it never was derp
     this->getClient()->initialize();

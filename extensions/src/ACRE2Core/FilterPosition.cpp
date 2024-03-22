@@ -9,6 +9,7 @@
 #include <cmath>
 #ifdef WIN32
 #pragma comment(lib, "x3daudio.lib")
+#pragma comment(lib, "xaudio2.lib")
 #endif
 
 #define MAX_FALLOFF_DISTANCE    75

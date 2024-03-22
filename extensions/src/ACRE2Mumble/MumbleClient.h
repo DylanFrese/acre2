@@ -60,6 +60,9 @@ public:
     acre::Result playSound(std::string path_, acre::vec3_fp32_t position_, const float32_t volume_, const int32_t looping_) final;
 
     std::string getUniqueId() final;
+    std::string getServerName(void) final;
+    std::string getChannelName(void) final;
+    std::string getChannelUniqueID(void) final;
 
     acre::Result microphoneOpen(const bool status_) final;
 
@@ -77,4 +80,7 @@ private:
     bool currentStatus;
     std::thread m_versionThreadHandle;
     char *m_vadLevel = nullptr;
+
+    mumble_channelid_t getCurrentChannelId();
+    std::string getChannelName(mumble_channelid_t channel);
 };

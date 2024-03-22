@@ -90,6 +90,7 @@ if (GVAR(keyedMicRadios) isNotEqualTo []) then {
     #endif
 
     _radioParamsSorted params ["_radios","_sources"];
+    GVAR(previousSortedParams) = _radioParamsSorted;
 
     #ifdef ENABLE_PERFORMANCE_COUNTERS
         if (_radios isNotEqualTo []) then {
@@ -172,7 +173,7 @@ if (GVAR(keyedMicRadios) isNotEqualTo []) then {
                             // This should be moved to plugin probably.
                             _params set [4, _radioPos];
                             _params set [0, _radioVolume * _volumeModifier * _attenuate * _occlusion];
-                            TRACE_4("volume (loudspeaker)",_params select 0,_radioVolume,_volumeModifier,_attenuate,_occlusion);
+                            TRACE_5("volume (loudspeaker)",_params select 0,_radioVolume,_volumeModifier,_attenuate,_occlusion);
                         } else {
                             private _ear = [_recRadio, "getState", "ACRE_INTERNAL_RADIOSPATIALIZATION"] call EFUNC(sys_data,dataEvent);
                             if (isNil "_ear") then {
