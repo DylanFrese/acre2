@@ -49,3 +49,9 @@ workshop = [
 dlc = [
     "S.O.G. Prairie Fire",
 ]
+
+[lints.sqf.format_args]
+severity = "Warning"
+
+[lints.sqf.banned_commands]
+severity = "Warning"

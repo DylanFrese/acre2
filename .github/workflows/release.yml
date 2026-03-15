@@ -115,7 +115,7 @@ jobs:
         cmake -DUSE_64BIT_BUILD=ON ..
         make -j
     - name: Upload Artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: acre2-extensions-linux
         path: |
