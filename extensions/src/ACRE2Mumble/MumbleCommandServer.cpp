@@ -4,7 +4,7 @@
 #include "MumbleFunctions.h"
 #include "TextMessage.h"
 
-#include <Tracy.hpp>
+#include <tracy/Tracy.hpp>
 
 #include <mutex>
 

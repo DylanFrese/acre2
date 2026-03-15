@@ -10,7 +10,7 @@
 #include "Shlwapi.h"
 #include "shlobj.h"
 
-#include <Tracy.hpp>
+#include <tracy/Tracy.hpp>
 
 #pragma comment(lib, "Shlwapi.lib")
 #else
@@ -279,10 +279,9 @@ std::string CMumbleClient::getChannelName() {
 
 std::string CMumbleClient::getChannelName(mumble_channelid_t channel) {
     const char *channelName = nullptr;
-    mumble_channelid_t currentChannelId = getCurrentChannelId();
 
-    if (currentChannelId != invalid_mumble_channel) {
-        if (mumAPI.getChannelName(pluginID, activeConnection, currentChannelId, &channelName) == MUMBLE_STATUS_OK) {
+    if (channel != invalid_mumble_channel) {
+        if (mumAPI.getChannelName(pluginID, activeConnection, channel, &channelName) == MUMBLE_STATUS_OK) {
             return channelName;
         }
     }

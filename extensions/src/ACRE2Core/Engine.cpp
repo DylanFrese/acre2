@@ -41,7 +41,7 @@
 #include <stdlib.h>
 #endif
 
-#include <Tracy.hpp>
+#include <tracy/Tracy.hpp>
 
 acre::Result CEngine::initialize(IClient *client, IServer *externalServer, std::string fromPipeName, std::string toPipeName) {
     ZoneScoped;

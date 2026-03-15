@@ -12,7 +12,7 @@
 
 #include "TextMessage.h"
 
-#include <Tracy.hpp>
+#include <tracy/Tracy.hpp>
 
 RPC_FUNCTION(updateSelf) {
     ZoneScopedN("RPC - updateSelf");

@@ -4,7 +4,7 @@
 #include "MumbleEventLoop.h"
 #include "compat.h"
 
-#include <Tracy.hpp>
+#include <tracy/Tracy.hpp>
 
 //
 // Handle a command event

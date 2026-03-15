@@ -4,7 +4,7 @@
 #include "TextMessage.h"
 #include "Log.h"
 
-#include <Tracy.hpp>
+#include <tracy/Tracy.hpp>
 
 RPC_FUNCTION(setSelectableVoiceCurve) {
     ZoneScopedN("RPC - setSelectableVoiceCurve");

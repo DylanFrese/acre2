@@ -6,7 +6,7 @@
 #include "Wave.h"
 #include "compat.h"
 
-#include <Tracy.hpp>
+#include <tracy/Tracy.hpp>
 
 #include <map>
 #define _USE_MATH_DEFINES

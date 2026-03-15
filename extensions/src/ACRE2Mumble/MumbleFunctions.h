@@ -5,7 +5,7 @@
 #include "MumblePlugin_v_1_1_x.h"
 
 
-#include <Tracy.hpp>
+#include <tracy/Tracy.hpp>
 
 #ifndef TRACY_ENABLE
 #define API_CALL(function, ...)             mumAPI.function(__VA_ARGS__)

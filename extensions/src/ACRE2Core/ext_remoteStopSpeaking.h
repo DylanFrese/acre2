@@ -11,7 +11,7 @@
 
 #include "TextMessage.h"
 
-#include <Tracy.hpp>
+#include <tracy/Tracy.hpp>
 
 RPC_FUNCTION(ext_remoteStopSpeaking) {
     ZoneScopedN("RPC - ext_remoteStopSpeaking");

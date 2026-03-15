@@ -13,7 +13,7 @@
 #include <netinet/ip.h>
 #include <arpa/inet.h>
 #endif
-#include <Tracy.hpp>
+#include <tracy/Tracy.hpp>
 
 #ifdef WIN32
 #define socketerror WSAGetLastError()

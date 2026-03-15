@@ -3,7 +3,7 @@
 
 #include <mutex>
 
-#include <Tracy.hpp>
+#include <tracy/Tracy.hpp>
 
 class CLockable {
 private:

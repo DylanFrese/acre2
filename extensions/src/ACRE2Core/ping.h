@@ -7,7 +7,7 @@
 #include "Engine.h"
 #include "TextMessage.h"
 
-#include <Tracy.hpp>
+#include <tracy/Tracy.hpp>
 
 volatile DWORD g_pingTime;
 

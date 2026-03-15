@@ -7,7 +7,7 @@
 #include <thread>
 #include <stdexcept>
 
-#include <Tracy.hpp>
+#include <tracy/Tracy.hpp>
 
 namespace acre {
 

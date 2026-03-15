@@ -3,7 +3,7 @@
 #include "IServer.h"
 #include "TextMessage.h"
 
-#include <Tracy.hpp>
+#include <tracy/Tracy.hpp>
 
 RPC_FUNCTION(getPluginVersion) {
     ZoneScopedN("RPC - getPluginVersion");

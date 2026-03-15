@@ -6,7 +6,7 @@
 #include "Types.h"
 #include "compat.h"
 
-#include <Tracy.hpp>
+#include <tracy/Tracy.hpp>
 //
 // Mumble Speaking callbacks
 //

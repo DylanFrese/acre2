@@ -7,7 +7,7 @@
 #include <queue>
 #include <thread>
 
-#include <Tracy.hpp>
+#include <tracy/Tracy.hpp>
 
 template<typename T> class TEntrantWorker : public CLockable {
 public:

@@ -7,7 +7,7 @@
 #include "compat.h"
 #include "helpers.h"
 
-#include <Tracy.hpp>
+#include <tracy/Tracy.hpp>
 
 #define FROM_PIPENAME "\\\\.\\pipe\\acre_comm_pipe_fromTS"
 #define TO_PIPENAME   "\\\\.\\pipe\\acre_comm_pipe_toTS"

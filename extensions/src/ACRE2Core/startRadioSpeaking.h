@@ -13,7 +13,7 @@
 
 #include <string>
 
-#include <Tracy.hpp>
+#include <tracy/Tracy.hpp>
 
 RPC_FUNCTION(startRadioSpeaking) {
     ZoneScopedN("RPC - startRadioSpeaking");

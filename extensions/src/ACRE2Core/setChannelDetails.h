@@ -7,7 +7,7 @@
 
 #include <sstream>
 
-#include <Tracy.hpp>
+#include <tracy/Tracy.hpp>
 
 RPC_FUNCTION(setChannelDetails) {
     ZoneScopedN("RPC - setChannelDetails");

@@ -4,7 +4,7 @@
 #include "Log.h"
 #include "AcreSettings.h"
 
-#include <Tracy.hpp>
+#include <tracy/Tracy.hpp>
 
 RPC_FUNCTION(setSetting) {
     ZoneScopedN("RPC - setSetting");

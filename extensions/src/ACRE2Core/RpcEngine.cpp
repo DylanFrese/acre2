@@ -12,7 +12,7 @@
 #include "Log.h"
 #include <list>
 
-#include <Tracy.hpp>
+#include <tracy/Tracy.hpp>
 
 const char *frameName = "RPCEngine";
   //

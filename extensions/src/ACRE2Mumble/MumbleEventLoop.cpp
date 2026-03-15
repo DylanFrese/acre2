@@ -1,6 +1,6 @@
 #include "MumbleEventLoop.h"
 
-#include <Tracy.hpp>
+#include <tracy/Tracy.hpp>
 
 namespace acre {
 

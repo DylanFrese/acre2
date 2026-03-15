@@ -11,7 +11,7 @@
 
 #include "TextMessage.h"
 
-#include <Tracy.hpp>
+#include <tracy/Tracy.hpp>
 
 RPC_FUNCTION(loadSound) {
     ZoneScopedN("RPC - loadSound");

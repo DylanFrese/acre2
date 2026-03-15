@@ -8,7 +8,7 @@
 #include "Engine.h"
 #include "TextMessage.h"
 
-#include <Tracy.hpp>
+#include <tracy/Tracy.hpp>
 
 
 RPC_FUNCTION(setMuted) {
